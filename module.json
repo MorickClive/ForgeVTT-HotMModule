@@ -78,8 +78,7 @@
     }
   ],
   "esmodules": [
-    "./scripts/init.js",
-	"./scripts/intro.js"
+    "./scripts/init.js"
   ],
   "dependencies": []
   },
