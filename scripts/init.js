@@ -83,7 +83,8 @@
 	});
 	});
 
-	let div = "".repeat(40);
-	console.log(`${div}\nModule: Heirs of the Maelstrom (ACTIVE)\n${div}`);
+	const div = "=".repeat(40);
+	const URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags"
+	console.log(`%c${div}\nModule: Heirs of the Maelstrom (ACTIVE)\nURL: ${div}\n%c${URL}`, 'background: #000; color: #006400', 'background: #000; color: #00CED1');
 
 })();
