@@ -78,23 +78,10 @@
     }
   ],
   "esmodules": [
-    "./scripts/init.js"
+    "./scripts/init.js",
+	"./scripts/intro.js"
   ],
-  "dependencies": [
-    {
-      "name": "scene-packer",
-      "manifest": "https://github.com/League-of-Foundry-Developers/scene-packer/releases/latest/download/module.json",
-      "type": "module"
-    }
-  ],
-  "relationships": {
-    "requires": [
-      {
-        "id": "scene-packer",
-        "type": "module",
-        "manifest": "https://github.com/League-of-Foundry-Developers/scene-packer/releases/latest/download/module.json"
-      }
-    ]
+  "dependencies": []
   },
   "url": "",
   "manifest": "",
