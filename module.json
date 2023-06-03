@@ -80,8 +80,6 @@
   "esmodules": [
     "./scripts/init.js"
   ],
-  "dependencies": []
-  },
   "url": "",
   "manifest": "",
   "download": "",
