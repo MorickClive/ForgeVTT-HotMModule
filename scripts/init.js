@@ -85,28 +85,31 @@
 
 	Hooks.on("renderActorSheet", (app, html, data) => {
 		let featuresTab = html.find('.tab.features');
+		let featuresList = featuresTab.find('.items-list.inventory-list');
+		const targActor = data.actor.data;
 
 		const post = `<div style="display:flex; flex-direction: column; align-items: center;">
-		<img src="${app.img}" data-edit="img" title="Avatar" height="256" width="256">
-		<span style="flex:1"><h3>Score: ${app.flags["heirs-of-the-maelstrom"].Scoreboard}</h3></span>
-		<span style="flex:1">Value: <input id="scoreVal" type="number" value ="5"/></span>
-		<span style="flex:1"></span>
+		<img src="${targActor.img}" data-edit="img" title="Avatar" height="256" width="256">
+		<h3>targActor.name</h3>
+		<h3>Current Score: ${targActor.flags["heirs-of-the-maelstrom"].Scoreboard}</h3></span>
 		</div>`;
 
+		let newSection = `<li class="items-header flexrow">
+			<h3 class="item-name flexrow">Scoreboard</h3>
+		</li>
+		<ol class="item-list">
+                    <li class="item flexrow " draggable="true">
+						<button class="macroScoreboardPost">Post Scoreboard to Chat</button>            
+                    </li>
+                </ol>
+		</div>`;
 
-		let newSection = $(`<div class="item">
-		<h4>Scoreboard:</h4>
-		<div class="item-content">
-        <button class="my-button">Post Scoreboard to Chat</button>
-		</div>
-		</div>`);
+		featuresList.prepend(newSection);
 
 		// Add an onClick function to the button
-		newSection.find('.my-button').click(() => {
+		featuresList.find('.macroScoreboardPost').click(() => {
 			ChatMessage.create({ content: post });
 		});
-
-		featuresTab.append(newSection);
 	});
 
 	const div = "=".repeat(40);
