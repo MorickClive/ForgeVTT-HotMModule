@@ -88,7 +88,7 @@
 
 		const post = `<div style="display:flex; flex-direction: column; align-items: center;">
 		<img src="${app.img}" data-edit="img" title="Avatar" height="256" width="256">
-		<span style="flex:1"><h3>Score: ${score}</h3></span>
+		<span style="flex:1"><h3>Score: ${app.flags["heirs-of-the-maelstrom"].Scoreboard}</h3></span>
 		<span style="flex:1">Value: <input id="scoreVal" type="number" value ="5"/></span>
 		<span style="flex:1"></span>
 		</div>`;
