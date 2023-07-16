@@ -67,24 +67,51 @@
 	const additionalModulePacks = ["heirs-of-the-maelstrom"];
 
 	Hooks.once('scenePackerReady', ScenePacker => {
-	// Initialise the Scene Packer with your adventure name and module name
-	let packer = ScenePacker.Initialise({
-	  adventureName,
-	  moduleName,
-	  creaturePacks,
-	  journalPacks,
-	  macroPacks,
-	  playlistPacks,
-	  additionalModulePacks,
-	  welcomeJournal,
-	  additionalJournals,
-	  additionalMacros,
-	  allowImportPrompts: true, // Set to false if you don't want the initial popup
+		// Initialise the Scene Packer with your adventure name and module name
+		let packer = ScenePacker.Initialise({
+			adventureName,
+			moduleName,
+			creaturePacks,
+			journalPacks,
+			macroPacks,
+			playlistPacks,
+			additionalModulePacks,
+			welcomeJournal,
+			additionalJournals,
+			additionalMacros,
+			allowImportPrompts: true, // Set to false if you don't want the initial popup
+		});
 	});
+
+	Hooks.on("renderActorSheet", (app, html, data) => {
+		let featuresTab = html.find('.tab.features');
+
+		const post = `<div style="display:flex; flex-direction: column; align-items: center;">
+		<img src="${app.img}" data-edit="img" title="Avatar" height="256" width="256">
+		<span style="flex:1"><h3>Score: ${score}</h3></span>
+		<span style="flex:1">Value: <input id="scoreVal" type="number" value ="5"/></span>
+		<span style="flex:1"></span>
+		</div>`;
+
+
+		let newSection = $(`<div class="item">
+		<h4>Scoreboard:</h4>
+		<div class="item-content">
+        <button class="my-button">Post Scoreboard to Chat</button>
+		</div>
+		</div>`);
+
+		// Add an onClick function to the button
+		newSection.find('.my-button').click(() => {
+			ChatMessage.create({ content: post });
+		});
+
+		featuresTab.append(newSection);
 	});
 
 	const div = "=".repeat(40);
-	const URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags"
-	console.log(`%c${div}\nModule: Heirs of the Maelstrom (ACTIVE)\nURL: ${div}\n%c${URL}`, 'background: #000; color: #006400', 'background: #000; color: #00CED1');
+	const URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags";
+	console.log(`%c${div}\nModule: 📗 Heirs of the Maelstrom (ACTIVE)\n${div}\nURL: ${URL}\n`, 'background: #000; color: #006400;');
 
 })();
+
