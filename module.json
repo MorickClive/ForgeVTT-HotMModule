@@ -1,15 +1,13 @@
 {
   "id": "heirs-of-the-maelstrom",
   "name": "heirs-of-the-maelstrom",
-  "title": "CUSTOM: HotM Test Code",
+  "title": "CUSTOM: HotM Scoreboard (Alex)",
   "description": "An exploration into custom modules and expanding interactions to game code.",
-  "version": "1.0.0",
-  "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "10",
+  "version": "1.0.1",
+  "minimumCoreVersion": "10",
   "compatibility": {
-    "minimum": "0.8.6",
-    "verified": "10",
-    "maximum": "10"
+    "minimum": "10",
+    "verified": "11"
   },
   "author": "MorickClive",
   "authors": [
@@ -17,70 +15,11 @@
       "name": "MorickClive"
     }
   ],
-  "packs": [
-    {
-      "name": "actors",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/actors.db",
-      "entity": "Actor",
-      "type": "Actor",
-      "system": "dnd5e"
-    },
-    {
-      "name": "cards",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/cards.db",
-      "entity": "Cards",
-      "type": "Cards"
-    },
-    {
-      "name": "items",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/items.db",
-      "entity": "Item",
-      "type": "Item",
-      "system": "dnd5e"
-    },
-    {
-      "name": "journals",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/journals.db",
-      "entity": "JournalEntry",
-      "type": "JournalEntry"
-    },
-    {
-      "name": "macros",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/macros.db",
-      "entity": "Macro",
-      "type": "Macro"
-    },
-    {
-      "name": "maps",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/maps.db",
-      "entity": "Scene",
-      "type": "Scene"
-    },
-    {
-      "name": "playlists",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/playlists.db",
-      "entity": "Playlist",
-      "type": "Playlist"
-    },
-    {
-      "name": "rolltables",
-      "label": "Custom: HotM Test Code",
-      "path": "/packs/rolltables.db",
-      "entity": "RollTable",
-      "type": "RollTable"
-    }
-  ],
+  "packs": [ ],
   "esmodules": [
     "./scripts/init.js"
   ],
-  "dependencies": [],
+  "relationships.require": [],
   "url": "",
   "manifest": "",
   "download": "",
