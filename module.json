@@ -1,7 +1,7 @@
 {
   "id": "heirs-of-the-maelstrom",
   "name": "heirs-of-the-maelstrom",
-  "title": "CUSTOM: HotM Scoreboard (Alex)",
+  "title": "CUSTOM: HotM Scoreboard",
   "description": "An exploration into custom modules and expanding interactions to game code.",
   "version": "1.0.2",
   "minimumCoreVersion": "10",

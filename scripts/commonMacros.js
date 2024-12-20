@@ -1,8 +1,7 @@
 
-export async function phyrexianRandomManaPicker() {
+export async function phyrexianRandomManaPicker(manaImgPath) {
 	console.log("Hello World");
 	const phyrexianTable = game.tables.get("17CZSugmOAWhW5hs");
-	const manaImgPath = "https://assets.forge-vtt.com/5fd78f412ae224c56f76ec59/worlds/heirs-of-the-maelstrom/%5Bone%20shots%5D/March%20of%20the%20Machines/icons/Mana-";
 	const iconCSS = "width:32px;height:32px;border:0;margin-left:15px;padding:1px;background:black;border-radius: 50px;";
 
 	let roll = await new Roll("1d5").evaluate({ async: true });
