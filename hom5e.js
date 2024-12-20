@@ -1,4 +1,4 @@
-import Scoreboard from "./modules/scoreboard.mjs";
+import Scoreboard from "./modules/scoreboard.js";
 
 function onRenderActorSheet(app, html, data) {
 	Scoreboard.injectActorSheet(app, html, data);
