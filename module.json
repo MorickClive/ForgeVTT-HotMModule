@@ -3,7 +3,7 @@
   "name": "heirs-of-the-maelstrom",
   "title": "CUSTOM: HotM Scoreboard",
   "description": "An exploration into custom modules and expanding interactions to game code.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "10",
   "compatibility": {
@@ -19,7 +19,7 @@
     }
   ],
   "esmodules": [
-    "hom5e.mjs"
+    "hom5e.js"
   ],
   "dependencies": [],
   "url": "https://github.com/MorickClive/ForgeVTT-HotMModule",
