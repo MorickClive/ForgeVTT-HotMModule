@@ -3,12 +3,13 @@
   "name": "heirs-of-the-maelstrom",
   "title": "CUSTOM: HotM Scoreboard",
   "description": "An exploration into custom modules and expanding interactions to game code.",
-  "version": "1.0.2",
-  "minimumCoreVersion": "10",
+  "version": "1.0.3",
+  "minimumCoreVersion": "9",
+  "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": "10",
     "verified": "11",
-    "maximum": "11"
+    "maximum": "*"
   },
   "author": "MorickClive",
   "authors": [
