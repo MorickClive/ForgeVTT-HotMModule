@@ -1,9 +1,8 @@
-import Scoreboard from "./modules/scoreboard.js";
+import { Scoreboard } from "./modules/scoreboard.mjs";
 
-async function onRenderActorSheet(app, html, data) {
-	await Scoreboard.injectActorSheet(app, html, data);
+function onRenderActorSheet(app, html, data) {
+	Scoreboard.injectActorSheet(app, html, data);
 }
 
-//Hooks.once("init", onInit);
 Hooks.on("renderActorSheet", onRenderActorSheet);
 Hooks.once("ready", Scoreboard.onReady);
