@@ -4,13 +4,8 @@
   "title": "CUSTOM: HotM Scoreboard",
   "description": "An exploration into custom modules and expanding interactions to game code.",
   "version": "1.0.4",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "10",
-  "compatibility": {
-    "minimum": "10",
-    "verified": "11",
-    "maximum": "*"
-  },
+	"minimumCoreVersion": "0.7.9",
+	"compatibleCoreVersion": "0.8.8",
   "author": "MorickClive",
   "authors": [
     {

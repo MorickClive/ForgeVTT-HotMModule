@@ -1,4 +1,4 @@
-export default class Scoreboard {
+export class Scoreboard {
 
     static targActor;
     static scoreboard;
