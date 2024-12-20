@@ -19,7 +19,7 @@
     }
   ],
   "esmodules": [
-    "hom5e.js"
+    "hom5e.mjs"
   ],
   "dependencies": [],
   "url": "https://github.com/MorickClive/ForgeVTT-HotMModule",

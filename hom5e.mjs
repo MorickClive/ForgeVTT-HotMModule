@@ -1,7 +1,7 @@
 import Scoreboard from "./modules/scoreboard.js";
 
-function onRenderActorSheet(app, html, data) {
-	Scoreboard.injectActorSheet(app, html, data);
+async function onRenderActorSheet(app, html, data) {
+	await Scoreboard.injectActorSheet(app, html, data);
 }
 
 //Hooks.once("init", onInit);
