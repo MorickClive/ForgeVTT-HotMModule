@@ -6,7 +6,7 @@
 
 A Foundry vtt module designed to support Character sheet tracking of a generic score.
 
-This is a very basic, initial exploration of creating custom module behaviours within the VTT platform.
+This is a very basic, initial exploration of creating custom module behaviours within the VTT platform. There is no testing or isolated sandbox currently, so coding is exploratory and inefficient.
 
 ## Example
 
