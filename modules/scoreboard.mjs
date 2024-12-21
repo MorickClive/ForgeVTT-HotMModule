@@ -32,7 +32,7 @@ export class Scoreboard {
         
         Scoreboard.#verifyScoreboard();
         await Scoreboard.#refreshScoreboard(data.actor);
-        Scoreboard.#injectSidebar(html, data.actor)
+        Scoreboard.#injectSidebar(html, data.actor);
     }
 
     // ========================================
@@ -165,7 +165,7 @@ class Scoreboard_HTML {
     static scorePost(actor, value) {
         let scale = 1.171875;
         return `<div style="display:flex; flex-direction: column; align-items: center;">
-        <img src="${actor.img}" data-edit="img" title="Avatar" height="${128 * scale}" width="${128 * scale}>
+        <img src="${actor.img}" data-edit="img" title="Avatar" height="${128 * scale}" width="${128 * scale}" >
         <h3>${actor.name}</h3>
         <h3>Current Score: ${value}</h3>
         </div>`;
