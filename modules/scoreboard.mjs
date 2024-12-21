@@ -119,9 +119,8 @@ export class Scoreboard {
     }
 
     static async setFlag(flag, value) {
-        Scoreboard.targActor.setFlag("heirs-of-the-maelstrom", flag, value);
-        //refresh the scoreboard on sheet
-        Scoreboard.html.find('#scoreboard_sheet').text(Scoreboard.scoreboard);
+        await Scoreboard.targActor.setFlag("heirs-of-the-maelstrom", flag, value);
+        Scoreboard.html.find('#scoreboard_sheet').text(await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard"););
     }
 
     // Actions
