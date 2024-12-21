@@ -3,8 +3,10 @@ export class Scoreboard {
     static targActor;
     static scoreboard;
     static html;
-    static data;
 
+    /**
+     * Initialises the module.
+     */
     static onReady(){
         let div = "=".repeat(40);
         let URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags";
@@ -14,45 +16,113 @@ export class Scoreboard {
                 'background: #000; color: #006400;');
         console.log(`HOM WITH UI CLASSES`);
     }
-   
-    static async injectActorSheet(app, html, data){
-        Scoreboard.targActor = null;
+
+    /**
+     * Injects the Scoreboard into the Actor Sheet.
+     * 
+     * Should be called from the renderActorSheet hook.
+     * 
+     * @param {JQuery} html - The HTML of the Actor Sheet
+     * @param {Object} data - The data of the Actor Sheet
+    */
+    static async injectActorSheet(html, data){
+        Scoreboard.html = html; // provides scope for the class
         Scoreboard.targActor = data.actor;
-        Scoreboard.html = html;
-        Scoreboard.data = data;
+        Scoreboard.scoreboard = 0;
+        
+        Scoreboard.#verifyScoreboard();
+        Scoreboard.#refreshScoreboard();
+        Scoreboard.#injectSidebar(html, Scoreboard.targActor)
+    }
 
-        if (!await Scoreboard.hasScoreBoard()) {
-            await Scoreboard.setFlag("Scoreboard", 0);
-        }
-
-        // Buttons
-        let css_sidebar = html.find('.sidebar');
-        // inject
+    // ========================================
+    static #injectSidebar(html, actor) {
         if (html.find('.favorites .scoreboard').length === 0) {
-            html.find('.favorites').before(Scoreboard.html_scoreboardButtons());
+            html.find('.favorites').before(Scoreboard_HTML.sheetButtons(Scoreboard.scoreboard));
         }
+        // Inject Event Listeners
+        Scoreboard.#injectEventListeners(html, actor, Scoreboard.scoreboard)
+    }
+
+    static #injectEventListeners(html, actor, scoreValue) {
+        let css_sidebar = html.find('.sidebar');
         let postScoreMacro = css_sidebar.find('.macroScoreboardPost');
         let adjustScoreboard = css_sidebar.find('.adjustScoreboard');
-        
-        Scoreboard.scoreboard = data.actor.flags["heirs-of-the-maelstrom"].Scoreboard;
-        
-        const post = `<div style="display:flex; flex-direction: column; align-items: center;">
-            <img src="${Scoreboard.targActor.img}" data-edit="img" title="Avatar" height="256" width="256">
-            <h3>${Scoreboard.targActor.name}</h3>
-            <h3>Current Score: ${Scoreboard.scoreboard}</h3>
-            </div>`;
 
-        // Add an onClick function to the button
         postScoreMacro.click(() => {
-            ChatMessage.create({ content: post });
+            ChatMessage.create({ content: Scoreboard_HTML.scorePost(actor, scoreValue) });
         });
         adjustScoreboard.click(() => {
-            Scoreboard.scoreBoardMenu();
+            Scoreboard.#createScoreboardMenu();
         });
     }
-    
-    // Supporting html
-    static html_scoreboardButtons() {
+
+    static #postScore(text, value) {
+        let html = Scoreboard_HTML.chatPost(text, value, Scoreboard.targActor);
+        ChatMessage.create({ content: html });
+    }
+
+    static async #createScoreboardMenu() {
+        return new Dialog({
+            title: `Scoreboard: ${Scoreboard.targActor.name}`,
+            content: Scoreboard_HTML.controlMenu(Scoreboard.targActor, Scoreboard.scoreboard),
+            buttons: {
+                reset: {
+                    label: "Reset",
+                    callback: () => { Scoreboard.#resetScoreboard(); }
+                },
+
+                increment5: {
+                    label: "Add",
+                    callback: (element) => {
+                        Scoreboard.#adjustScore(element.find("#scoreVal")[0].valueAsNumber); }
+                },
+
+                decrement5: {
+                    label: "Remove",
+                    callback: (element) => { 
+                        Scoreboard.#adjustScore(-element.find("#scoreVal")[0].valueAsNumber); }
+                }
+            }
+        }).render(true);
+    }
+
+    /**
+     * Refreshes or initialises the scoreboard value from the actor's flags.
+     */
+    static #refreshScoreboard() {
+        Scoreboard.scoreboard = data.actor.flags["heirs-of-the-maelstrom"].Scoreboard;
+    }
+
+    // Actions
+    static async #hasScoreBoard() {
+        Scoreboard.html.find('#scoreboard_sheet').text(0);
+        return (await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard")) != null;
+    }
+
+    static async #adjustScore(value) {
+        let currentScore = await FlagManager.getActorFlag(targActor, "Scoreboard");
+
+        Scoreboard.#postScore("Modifies Score", value);
+        Scoreboard.html.find('#scoreboard_sheet').text(currentScore + value);
+        await FlagManager.setActorFlag(Scoreboard.targActor, "Scoreboard", currentScore + value);
+    }
+
+    static async #resetScoreboard() {
+        Scoreboard.#postScore("Reset Score to", 0);
+        await FlagManager.setActorFlag(Scoreboard.targActor, "Scoreboard", 0);
+    }
+
+    static async #verifyScoreboard() {
+        console.log(`Needs Scoreboard? - ${!await Scoreboard.#hasScoreBoard()}`);
+        if (!await Scoreboard.#hasScoreBoard()) {
+            await Scoreboard.#resetScoreboard();
+        }
+    }
+}
+
+class Scoreboard_HTML {
+    static sheetButtons(value) {
         return `<div class="favorites scoreboard" style="flex:0;">
             <h3 class="icon">
                 <i class="fas fa-star"></i>
@@ -66,7 +136,7 @@ export class Scoreboard {
                     <div class="meter-group">
                         <div class="meter hit-dice progress" role="meter" aria-valuemin="0" aria-valuenow="12" aria-valuemax="13" style="--bar-percentage: 100%">
                             <div class="label">
-                                <span id="scoreboard_sheet" class="value">${Scoreboard.scoreboard}</span>
+                                <span id="scoreboard_sheet" class="value">${value}</span>
                             </div>
                         </div>
                     </div>
@@ -82,71 +152,38 @@ export class Scoreboard {
         </div>`;
     }
 
-    // Main
-    static async scoreBoardMenu() {
-        const content = `
+    static controlMenu(actor, value){
+        return `
             <div style="display:flex; flex-direction: column; align-items: center;">
-            <img src="${Scoreboard.targActor.system.img}" data-edit="img" title="Avatar" height="256" width="256">
-            <span style="flex:1"><h3>Score: ${Scoreboard.scoreboard}</h3></span>
+            <img src="${actor.system.img}" data-edit="img" title="Avatar" height="256" width="256">
+            <span style="flex:1"><h3>Score: ${value}</h3></span>
             <span style="flex:1">Value: <input id="scoreVal" type="number" value ="5"/></span>
             <span style="flex:1"></span>
             </div>`;
-
-        return new Dialog({
-            title: `Scoreboard: ${Scoreboard.targActor.name}`,
-            content: content,
-            buttons: {
-                reset: {
-                    label: "Reset",
-                    callback: () => { Scoreboard.resetScoreboard(); }
-                },
-
-                increment5: {
-                    label: "Add",
-                    callback: (element) => { Scoreboard.adjustScore(element.find("#scoreVal")[0].valueAsNumber); }
-                },
-
-                decrement5: {
-                    label: "Remove",
-                    callback: (element) => { Scoreboard.adjustScore(-element.find("#scoreVal")[0].valueAsNumber); }
-                }
-            }
-        }).render(true);
     }
 
-    static async hasScoreBoard() {
-        return (await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard")) != null;
+    static scorePost(actor, value) {
+        return `<div style="display:flex; flex-direction: column; align-items: center;">
+        <img src="${actor.img}" data-edit="img" title="Avatar" height="256" width="256">
+        <h3>${actor.name}</h3>
+        <h3>Current Score: ${value}</h3>
+        </div>`;
     }
 
-    static async setFlag(flag, value) {
-        await Scoreboard.targActor.setFlag("heirs-of-the-maelstrom", flag, value);
-        Scoreboard.html.find('#scoreboard_sheet').text(await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard"));
-    }
-
-    // Actions
-    static _postScore(text, value) {
-        let html = `<div style="display:flex; flex-direction: column; align-items: center;">
-            <h3>${Scoreboard.targActor.name}</h3>
+    static chatPost(text, value, actor = "Missing-Name") {
+        return `<div style="display:flex; flex-direction: column; align-items: center;">
+            <h3>${actor.name}</h3>
             <h3>${text}: ${value}</h3>
         </div>`;
+    }
+}
 
-        ChatMessage.create({ content: html });
+class FlagManager {
+    static async setActorFlag(actor, flag, value) {
+        await actor.setFlag("heirs-of-the-maelstrom", flag, value);
     }
 
-    static async resetScoreboard() {
-        Scoreboard._postScore("Reset Score to", 0);
-        await Scoreboard.setFlag("Scoreboard", 0);
-    }
-
-    static async adjustScore(value) {
-        console.log(`Needs Scoreboard? - ${!await Scoreboard.hasScoreBoard()}`);
-        if (!await Scoreboard.hasScoreBoard()) {
-            await Scoreboard.resetScoreboard();
-        }
-        
-        let currentScore = await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard");
-
-        Scoreboard._postScore("Modifies Score", value);
-        await Scoreboard.setFlag("Scoreboard", currentScore + value);
+    static async getActorFlag(actor, flag) {
+        return await actor.getFlag("heirs-of-the-maelstrom", flag);
     }
 }

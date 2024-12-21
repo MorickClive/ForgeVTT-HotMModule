@@ -1,8 +1,4 @@
 import { Scoreboard } from "./modules/scoreboard.mjs";
 
-function onRenderActorSheet(app, html, data) {
-	Scoreboard.injectActorSheet(app, html, data);
-}
-
-Hooks.on("renderActorSheet", onRenderActorSheet);
+Hooks.on("renderActorSheet", Scoreboard.injectActorSheet(html, data));
 Hooks.once("ready", Scoreboard.onReady);
