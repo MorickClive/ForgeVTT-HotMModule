@@ -7,7 +7,7 @@ export class Scoreboard {
     /**
      * Initialises the module.
      */
-    static onReady(version){
+    static onReady(){
         let div = "=".repeat(40);
         let URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags";
         let version = "1.1.0";
