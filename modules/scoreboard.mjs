@@ -1,3 +1,5 @@
+import { version } from '../module.json';
+
 export class Scoreboard {
 
     static targActor;
@@ -10,7 +12,6 @@ export class Scoreboard {
     static onReady(){
         let div = "=".repeat(40);
         let URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags";
-        let version = "1.0.1"; // Ideally fetch dynamically from a config
 
         console.log(`%c${div}\nModule: 📗 Heirs of the Maelstrom: (v${version})\n${div}\nURL: ${URL}\n`,
                 'background: #000; color: #006400;');
@@ -152,7 +153,7 @@ class Scoreboard_HTML {
     }
 
     static controlMenu(actor, value){
-        let scale = 1.171875;
+        let scale = 2;
         return `
             <div style="display:flex; flex-direction: column; align-items: center;">
             <img src="${actor.img}" data-edit="img" title="Avatar" height="${128 * scale}" width="${128 * scale}">
@@ -163,8 +164,9 @@ class Scoreboard_HTML {
     }
 
     static scorePost(actor, value) {
+        let scale = 1.171875;
         return `<div style="display:flex; flex-direction: column; align-items: center;">
-        <img src="${actor.img}" data-edit="img" title="Avatar" height="256" width="256">
+        <img src="${actor.img}" data-edit="img" title="Avatar" height="${128 * scale}" width="${128 * scale}>
         <h3>${actor.name}</h3>
         <h3>Current Score: ${value}</h3>
         </div>`;
