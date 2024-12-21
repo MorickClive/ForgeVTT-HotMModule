@@ -173,8 +173,7 @@ class Scoreboard_HTML {
 
     static chatPost(text, value, actor = "Missing-Name") {
         return `<div style="display:flex; flex-direction: column; align-items: center;">
-            <h3>${actor.name}</h3>
-            <h3>${text}: ${value}</h3>
+            <h3>${actor.name} - ${text}: ${value}</h3>
         </div>`;
     }
 }
