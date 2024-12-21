@@ -21,6 +21,13 @@
   "relationships": {
     "requires": []
   },
+  "media": [
+    {
+      "type": "cover",
+      "url": "https://github.com/MorickClive/ForgeVTT-HotMModule/blob/main/documentation/assets/scoreboard_overview.png",
+      "caption": "HotM Scoreboard"
+    }
+  ],
   "url": "https://github.com/MorickClive/ForgeVTT-HotMModule",
   "manifest": "https://raw.githubusercontent.com/MorickClive/ForgeVTT-HotMModule/main/module.json",
   "download": "https://github.com/MorickClive/ForgeVTT-HotMModule/archive/refs/heads/main.zip"

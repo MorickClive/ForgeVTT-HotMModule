@@ -9,7 +9,7 @@ export class Scoreboard {
      */
     static onReady(){
         let div = "=".repeat(40);
-        let URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags";
+        let URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/main#custom-hotm-scoreboard";
         let version = "1.1.0";
 
         console.log(`%c${div}\nModule: 📗 Heirs of the Maelstrom: (v${version})\n${div}\nURL: ${URL}\n`,
