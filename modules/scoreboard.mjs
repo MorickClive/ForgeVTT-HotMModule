@@ -152,9 +152,10 @@ class Scoreboard_HTML {
     }
 
     static controlMenu(actor, value){
+        let scale = 1.171875;
         return `
             <div style="display:flex; flex-direction: column; align-items: center;">
-            <img src="${actor.system.img}" data-edit="img" title="Avatar" height="256" width="256">
+            <img src="${actor.img}" data-edit="img" title="Avatar" height="${128 * scale}" width="${128 * scale}">
             <span style="flex:1"><h3>Score: ${value}</h3></span>
             <span style="flex:1">Value: <input id="scoreVal" type="number" value ="5"/></span>
             <span style="flex:1"></span>
