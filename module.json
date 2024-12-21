@@ -3,7 +3,7 @@
   "name": "heirs-of-the-maelstrom",
   "title": "CUSTOM: HotM Scoreboard",
   "description": "An exploration into custom modules and expanding interactions to game code.",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "compatibility": {
     "minimum": "10",
     "verified": "12",

@@ -25,7 +25,7 @@ export class Scoreboard {
      * @param {JQuery} html - The HTML of the Actor Sheet
      * @param {Object} data - The data of the Actor Sheet
     */
-    static async injectActorSheet(html, data){
+    static async injectActorSheet(app, html, data){
         Scoreboard.html = html; // provides scope for the class
         Scoreboard.targActor = data.actor;
         Scoreboard.scoreboard = 0;
@@ -183,6 +183,7 @@ class FlagManager {
     }
 
     static async getActorFlag(actor, flag) {
+        await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard");
         return await actor.getFlag("heirs-of-the-maelstrom", flag);
     }
 }
