@@ -16,6 +16,10 @@ export class Scoreboard {
    static async injectActorSheet(app, html, data){
         // Buttons
         let css_sidebar = html.find('.sidebar');
+        // inject
+        if (html.find('.favorites .scoreboard').length === 0) {
+            html.find('.favorites').before(Scoreboard.html_scoreboardButtons())
+        }
         let postScoreMacro = css_sidebar.find('.macroScoreboardPost')
         let adjustScoreboard = css_sidebar.find('.adjustScoreboard')
 
@@ -33,11 +37,6 @@ export class Scoreboard {
             <h3>${Scoreboard.targActor.name}</h3>
             <h3>Current Score: ${Scoreboard.scoreboard}</h3></span>
             </div>`;
-
-        // inject
-        if (html.find('.favorites .scoreboard').length === 0) {
-            html.find('.favorites').before(Scoreboard.html_scoreboardButtons())
-        }
 
         // Add an onClick function to the button
         postScoreMacro.click(() => {
