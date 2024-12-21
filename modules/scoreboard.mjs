@@ -31,7 +31,7 @@ export class Scoreboard {
         Scoreboard.scoreboard = 0;
         
         Scoreboard.#verifyScoreboard();
-        Scoreboard.#refreshScoreboard();
+        Scoreboard.#refreshScoreboard(data.actor);
         Scoreboard.#injectSidebar(html, Scoreboard.targActor)
     }
 
@@ -90,8 +90,8 @@ export class Scoreboard {
     /**
      * Refreshes or initialises the scoreboard value from the actor's flags.
      */
-    static #refreshScoreboard() {
-        Scoreboard.scoreboard = data.actor.flags["heirs-of-the-maelstrom"].Scoreboard;
+    static #refreshScoreboard(actor) {
+        Scoreboard.scoreboard = actor.flags["heirs-of-the-maelstrom"].Scoreboard;
     }
 
     // Actions
