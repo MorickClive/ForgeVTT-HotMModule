@@ -100,7 +100,7 @@ export class Scoreboard {
     }
 
     static async #adjustScore(value) {
-        let currentScore = await FlagManager.getActorFlag(targActor, "Scoreboard");
+        let currentScore = await FlagManager.getActorFlag(Scoreboard.targActor, "Scoreboard");
 
         Scoreboard.#postScore("Modifies Score", value);
         Scoreboard.html.find('#scoreboard_sheet').text(currentScore + value);
