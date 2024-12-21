@@ -120,7 +120,7 @@ export class Scoreboard {
 
     static async setFlag(flag, value) {
         await Scoreboard.targActor.setFlag("heirs-of-the-maelstrom", flag, value);
-        Scoreboard.html.find('#scoreboard_sheet').text(await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard"););
+        Scoreboard.html.find('#scoreboard_sheet').text(await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard"));
     }
 
     // Actions
