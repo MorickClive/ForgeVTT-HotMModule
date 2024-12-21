@@ -14,6 +14,13 @@ export class Scoreboard {
    }
    
    static async injectActorSheet(app, html, data){
+        Scoreboard.targActor = null
+        Scoreboard.targActor = data.actor;
+
+        if (!await Scoreboard.hasScoreBoard()) {
+            await Scoreboard.setFlag("Scoreboard", 0);
+        }
+
         // Buttons
         let css_sidebar = html.find('.sidebar');
         // inject
@@ -22,13 +29,6 @@ export class Scoreboard {
         }
         let postScoreMacro = css_sidebar.find('.macroScoreboardPost')
         let adjustScoreboard = css_sidebar.find('.adjustScoreboard')
-
-        Scoreboard.targActor = null
-        Scoreboard.targActor = data.actor;
-
-        if (!await Scoreboard.hasScoreBoard()) {
-            await Scoreboard.setFlag("Scoreboard", 0);
-        }
         
         Scoreboard.scoreboard = data.actor.flags["heirs-of-the-maelstrom"].Scoreboard;
         
@@ -81,7 +81,7 @@ export class Scoreboard {
     static async scoreBoardMenu() {
         const content = `
 			<div style="display:flex; flex-direction: column; align-items: center;">
-			<img src="${Scoreboard.targActor.data.img}" data-edit="img" title="Avatar" height="256" width="256">
+			<img src="${Scoreboard.targActor.system.img}" data-edit="img" title="Avatar" height="256" width="256">
 			<span style="flex:1"><h3>Score: ${Scoreboard.scoreboard}</h3></span>
 			<span style="flex:1">Value: <input id="scoreVal" type="number" value ="5"/></span>
 			<span style="flex:1"></span>
