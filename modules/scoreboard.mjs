@@ -31,8 +31,8 @@ export class Scoreboard {
         Scoreboard.scoreboard = 0;
         
         Scoreboard.#verifyScoreboard();
-        Scoreboard.#refreshScoreboard(data.actor);
-        Scoreboard.#injectSidebar(html, Scoreboard.targActor)
+        await Scoreboard.#refreshScoreboard(data.actor);
+        Scoreboard.#injectSidebar(html, data.actor)
     }
 
     // ========================================
@@ -90,14 +90,13 @@ export class Scoreboard {
     /**
      * Refreshes or initialises the scoreboard value from the actor's flags.
      */
-    static #refreshScoreboard(actor) {
-        Scoreboard.scoreboard = actor.flags["heirs-of-the-maelstrom"].Scoreboard;
+    static async #refreshScoreboard(actor) {
+        Scoreboard.scoreboard = await FlagManager.getActorFlag(actor, "Scoreboard");
     }
 
     // Actions
     static async #hasScoreBoard() {
-        Scoreboard.html.find('#scoreboard_sheet').text(0);
-        return (await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard")) != null;
+        return (await FlagManager.getActorFlag(Scoreboard.targActor, "Scoreboard")) != null;
     }
 
     static async #adjustScore(value) {
