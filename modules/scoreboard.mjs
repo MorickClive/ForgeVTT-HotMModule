@@ -1,5 +1,3 @@
-import { version } from '../module.json';
-
 export class Scoreboard {
 
     static targActor;
@@ -9,9 +7,10 @@ export class Scoreboard {
     /**
      * Initialises the module.
      */
-    static onReady(){
+    static onReady(version){
         let div = "=".repeat(40);
         let URL = "https://github.com/MorickClive/ForgeVTT-HotMModule/tree/feature-customFlags";
+        let version = "1.1.0";
 
         console.log(`%c${div}\nModule: 📗 Heirs of the Maelstrom: (v${version})\n${div}\nURL: ${URL}\n`,
                 'background: #000; color: #006400;');
