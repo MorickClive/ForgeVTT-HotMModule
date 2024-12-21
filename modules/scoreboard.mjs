@@ -50,15 +50,6 @@ export class Scoreboard {
             Scoreboard.scoreBoardMenu();
         });
     }
-
-    static postScore(prefixText, value) {
-        let html = `<div style="display:flex; flex-direction: column; align-items: center;">
-            <h3>${Scoreboard.targActor.name}</h3>
-            <h3>${prefixText}: ${value}</h3>
-        </div>`;
-
-        ChatMessage.create({ content: html });
-    }
     
     // Supporting html
     static html_scoreboardButtons() {
@@ -134,19 +125,27 @@ export class Scoreboard {
     }
 
     // Actions
+    static _postScore(text, value) {
+        let html = `<div style="display:flex; flex-direction: column; align-items: center;">
+            <h3>${Scoreboard.targActor.name}</h3>
+            <h3>${text}: ${value}</h3>
+        </div>`;
+
+        ChatMessage.create({ content: html });
+    }
+
     static async resetScoreboard() {
-        Scoreboard.postScore("Reset Score to", 0);
+        Scoreboard._postScore("Reset Score to", 0);
         await Scoreboard.setFlag("Scoreboard", 0);
     }
 
     static async adjustScore(value) {
-        console.log(!await Scoreboard.hasScoreBoard());
+        console.log(`Needs Scoreboard? - ${!await Scoreboard.hasScoreBoard()}`);
         if (!await Scoreboard.hasScoreBoard()) {
             await Scoreboard.resetScoreboard();
         }
-        let currentScore = await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard");
 
-        Scoreboard.postScore("Modifies Score", value);
+        Scoreboard._postScore("Modifies Score", value);
         await Scoreboard.setFlag("Scoreboard", currentScore + value);
     }
 }
