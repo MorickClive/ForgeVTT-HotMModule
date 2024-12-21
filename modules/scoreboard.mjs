@@ -144,6 +144,8 @@ export class Scoreboard {
         if (!await Scoreboard.hasScoreBoard()) {
             await Scoreboard.resetScoreboard();
         }
+        
+        let currentScore = await Scoreboard.targActor.getFlag("heirs-of-the-maelstrom", "Scoreboard");
 
         Scoreboard._postScore("Modifies Score", value);
         await Scoreboard.setFlag("Scoreboard", currentScore + value);
